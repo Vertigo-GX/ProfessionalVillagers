@@ -7,6 +7,10 @@
   "authors": [
     "Vertigo GX"
   ],
+  "contact": {
+    "sources": "https://github.com/Vertigo-GX/ProfessionalVillagers",
+    "issues": "https://github.com/Vertigo-GX/ProfessionalVillagers/issues"
+  },
   "license": "MIT",
   "icon": "assets/professional-villagers/icon.png",
   "environment": "*",
