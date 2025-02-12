@@ -1,0 +1,13 @@
+{
+  "text.config.professional-villagers.title": "Professional Villagers - Options",
+  "text.config.professional-villagers.option.quickReroll": "Quick reroll",
+  "text.config.professional-villagers.option.quickReroll.tooltip": "Right-clicking on a villager with an emerald block resets its trade\noffers. Only works if the villager doesn't have any experience.",
+  "text.config.professional-villagers.option.dismissTrader": "Dismiss wandering trader",
+  "text.config.professional-villagers.option.dismissTrader.tooltip": "Right-clicking on a wandering trader with an emerald block dismisses\nit after 5 seconds. Doesn't dismiss traders spawned by spawn eggs.",
+  "text.config.professional-villagers.option.resetProfession": "Reset profession",
+  "text.config.professional-villagers.option.resetProfession.tooltip": "Right-clicking on a villager with a poisonous potato resets its trade\noffers, level and experience. The villager must have the weakness\neffect, same as when curing a zombie villager with a golden apple.",
+  "text.config.professional-villagers.option.learnEnchantment": "Learn enchantment",
+  "text.config.professional-villagers.option.learnEnchantment.tooltip": "Right-clicking on a librarian with an enchanted book teaches it a\nrandom enchantment from that book. Can be done once per master-level\nlibrarian. The book is consumed in the process.",
+  "text.config.professional-villagers.option.modifiedTrades": "Modified trades",
+  "text.config.professional-villagers.option.modifiedTrades.tooltip": "Modifies the trade offers of certain professions:\n* Farmers always have the pumpkin trade.\n* Fishermen always have the raw cod trade.\n* Toolsmiths no longer sell axes, but always have the diamond hoe and\ndiamond shovel trades."
+}

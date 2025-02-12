@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "vertigo.professionalvillagers.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "VillagerEntityMixin",
+    "WanderingTraderEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "professional-villagers",
+  "version": "${version}",
+  "name": "Professional Villagers",
+  "description": "Makes villagers slightly easier to work with.",
+  "authors": [
+    "Vertigo GX"
+  ],
+  "license": "MIT",
+  "icon": "assets/professional-villagers/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "vertigo.professionalvillagers.ProfessionalVillagers"
+    ]
+  },
+  "mixins": [
+    "professional-villagers.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.10",
+    "minecraft": "~1.21.4",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
