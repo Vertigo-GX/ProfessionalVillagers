@@ -41,7 +41,7 @@ public abstract class WanderingTraderEntityMixin extends MerchantEntity {
 	 */
 	@Inject(method = "interactMob", at = @At("HEAD"), cancellable = true)
 	private void interactMobInject(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
-		if (this.getWorld().isClient || !ProfessionalVillagers.CONFIG.dismissTrader() || this.getDespawnDelay() < DESPAWN_DELAY) {
+		if (this.getWorld().isClient || !ProfessionalVillagers.CONFIG.dismissTrader || this.getDespawnDelay() < DESPAWN_DELAY) {
 			return;
 		}
 		if (!player.getStackInHand(hand).isOf(Items.EMERALD_BLOCK)) {

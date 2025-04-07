@@ -8,6 +8,7 @@
     "Vertigo GX"
   ],
   "contact": {
+    "homepage": "https://modrinth.com/mod/professional-villagers",
     "sources": "https://github.com/Vertigo-GX/ProfessionalVillagers",
     "issues": "https://github.com/Vertigo-GX/ProfessionalVillagers/issues"
   },
@@ -17,6 +18,9 @@
   "entrypoints": {
     "main": [
       "vertigo.professionalvillagers.ProfessionalVillagers"
+    ],
+    "modmenu": [
+      "vertigo.professionalvillagers.ModMenuIntegration"
     ]
   },
   "mixins": [
@@ -27,5 +31,8 @@
     "minecraft": "~1.21.4",
     "java": ">=21",
     "fabric-api": "*"
+  },
+  "suggests": {
+    "modmenu": ">=13.0.0"
   }
 }

@@ -54,6 +54,9 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
 	 */
 	@Inject(method = "fillRecipes", at = @At("TAIL"))
 	private void fillRecipesInject(CallbackInfo info) {
+		if (!ProfessionalVillagers.CONFIG.levelEnchantments) {
+			return;
+		}
 		VillagerData data = this.getVillagerData();
 		if (data.getProfession() != VillagerProfession.LIBRARIAN || data.getLevel() > VillagerData.MIN_LEVEL) {
 			return;
@@ -66,6 +69,9 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
 	 */
 	@Inject(method = "levelUp", at = @At("TAIL"))
 	private void levelUpInject(CallbackInfo info) {
+		if (!ProfessionalVillagers.CONFIG.levelEnchantments) {
+			return;
+		}
 		VillagerData data = this.getVillagerData();
 		if (data.getProfession() != VillagerProfession.LIBRARIAN) {
 			return;
@@ -139,7 +145,7 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
 	 */
 	@Unique
 	private void resetOffers() {
-		if (!ProfessionalVillagers.CONFIG.quickReroll() || this.getExperience() > 0) {
+		if (!ProfessionalVillagers.CONFIG.quickReroll || this.getExperience() > 0) {
 			return;
 		}
 		this.setOffers(null);
@@ -153,7 +159,7 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
 	 */
 	@Unique
 	private void learnEnchantment(PlayerEntity player, ItemStack book) {
-		if (!ProfessionalVillagers.CONFIG.learnEnchantment()) {
+		if (!ProfessionalVillagers.CONFIG.learnEnchantment) {
 			return;
 		}
 		VillagerData data = this.getVillagerData();
@@ -192,7 +198,7 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
 	 */
 	@Unique
 	private void resetProfession(PlayerEntity player, ItemStack stack) {
-		if (!ProfessionalVillagers.CONFIG.resetProfession() || this.getExperience() == 0 || !this.hasStatusEffect(StatusEffects.WEAKNESS)) {
+		if (!ProfessionalVillagers.CONFIG.resetProfession || this.getExperience() == 0 || !this.hasStatusEffect(StatusEffects.WEAKNESS)) {
 			return;
 		}
 		this.setVillagerData(this.getVillagerData().withLevel(VillagerData.MIN_LEVEL));

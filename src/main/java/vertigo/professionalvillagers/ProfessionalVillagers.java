@@ -15,7 +15,7 @@ public class ProfessionalVillagers implements ModInitializer {
 
 	public static final String MOD_ID = "professional-villagers";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	public static final vertigo.professionalvillagers.ModConfig CONFIG = vertigo.professionalvillagers.ModConfig.createAndLoad();
+	public static final Config CONFIG = new Config();
 
 	private static final int NOVICE = 1;
 	private static final int APPRENTICE = 2;
@@ -29,7 +29,7 @@ public class ProfessionalVillagers implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Initializing");
-		if (CONFIG.modifiedTrades()) {
+		if (CONFIG.modifiedTrades) {
 			modifyFarmerTrades();
 			modifyFishermanTrades();
 			modifyToolsmithTrades();
