@@ -1,5 +1,5 @@
 {
-  "professional-villagers.optionsTitle": "Professional Villagers - Options",
+  "professional-villagers.text.optionsTitle": "Professional Villagers - Options",
   "professional-villagers.option.quickReroll": "Quick reroll",
   "professional-villagers.tooltip.quickReroll": "Right-clicking on a villager with an emerald block resets its trade offers. Only works if the villager doesn't have any experience.\n\nDefault: ON",
   "professional-villagers.option.dismissTrader": "Dismiss wandering trader",
