@@ -58,7 +58,7 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
 			return;
 		}
 		VillagerData data = this.getVillagerData();
-		if (data.getProfession() != VillagerProfession.LIBRARIAN || data.getLevel() > VillagerData.MIN_LEVEL) {
+		if (!data.profession().matchesKey(VillagerProfession.LIBRARIAN) || data.level() > VillagerData.MIN_LEVEL) {
 			return;
 		}
 		setEnchantmentLevels(1);
@@ -73,10 +73,10 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
 			return;
 		}
 		VillagerData data = this.getVillagerData();
-		if (data.getProfession() != VillagerProfession.LIBRARIAN) {
+		if (!data.profession().matchesKey(VillagerProfession.LIBRARIAN)) {
 			return;
 		}
-		setEnchantmentLevels(data.getLevel());
+		setEnchantmentLevels(data.level());
 	}
 
 	/**
@@ -163,7 +163,7 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
 			return;
 		}
 		VillagerData data = this.getVillagerData();
-		if (data.getProfession() != VillagerProfession.LIBRARIAN || data.getLevel() < VillagerData.MAX_LEVEL) {
+		if (!data.profession().matchesKey(VillagerProfession.LIBRARIAN) || data.level() < VillagerData.MAX_LEVEL) {
 			return;
 		}
 		TradeOfferList offers = this.getOffers();

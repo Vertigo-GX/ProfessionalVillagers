@@ -33,6 +33,6 @@
     "fabric-api": "*"
   },
   "suggests": {
-    "modmenu": ">=13.0.0"
+    "modmenu": ">=14.0.0"
   }
 }
