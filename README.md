@@ -1,7 +1,7 @@
-# Professional Villagers
+# [Professional Villagers](https://modrinth.com/mod/professional-villagers)
 A small server-side/singleplayer Minecraft mod for Fabric that makes villagers slightly easier to work with.
 
-(Note: Has only been tested in singeplayer so far!)
+(Note: Has only been tested in singleplayer so far!)
 
 ### Features:
 * Enchantments level with the librarian instead of having a set level.
@@ -16,7 +16,10 @@ A small server-side/singleplayer Minecraft mod for Fabric that makes villagers s
 * All features are optional.
 
 ### Configuration:
-Either edit the config file (`professional-villagers.ini`) found in the Fabric config folder, or use [Mod Menu](https://modrinth.com/mod/modmenu) to edit the options in game.
+Either edit the config file (`professional-villagers.ini`) found in the Fabric config folder (requires a restart for the changes to take effect), or (optionally) use [Mod Menu](https://modrinth.com/mod/modmenu) to edit the options in game.
 
-### Recommendations:
-* [Mod Menu](https://modrinth.com/mod/modmenu)
+### My other mods:
+* [Cleaner Menus](https://modrinth.com/mod/cleaner-menus) (client side)
+* [Unobtrusive Effects](https://modrinth.com/mod/unobtrusive-effects) (client side)
+* [A Minor Convenience](https://modrinth.com/mod/a-minor-convenience) (server side)
+* [Game Tweaks](https://modrinth.com/mod/game-tweaks) (server side)
