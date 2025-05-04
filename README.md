@@ -4,14 +4,14 @@ A small server-side/singleplayer Minecraft mod for Fabric that makes villagers s
 (Note: Has only been tested in singleplayer so far!)
 
 ### Features:
-* Enchantments level with the librarian instead of having a set level.
-* Right-clicking on a villager with an emerald block resets its trade offers. Only works if the villager doesn't have any experience.
-* Right-clicking on a wandering trader with an emerald block dismisses it after 5 seconds. Doesn't dismiss traders spawned by spawn eggs.
-* Right-clicking on a villager with a poisonous potato resets its trade offers, level and experience. The villager must have the Weakness effect, same as when curing a zombie villager with a golden apple.
-* Right-clicking on a librarian with an enchanted book teaches it a random enchantment from that book. Can be done once per master-level librarian. The book is consumed in the process.
+* Enchantments level up with librarians instead of having a set level.
+* Interacting (right-click) with a villager while holding an emerald block resets its trade offers. Only works if the villager doesn't have any experience.
+* Interacting with a wandering trader while holding an emerald block dismisses it after 5 seconds. Doesn't dismiss traders spawned by spawn eggs.
+* Interacting with a villager while holding a poisonous potato resets its trade offers, level and experience. The villager must have the Weakness effect, same as when curing a zombie villager with a golden apple. The potato is consumed in the process.
+* Interacting with a librarian while holding an enchanted book teaches it a random enchantment from said book. Can be done once per master-level librarian. The book is consumed in the process.
 * Modifies the trade offers of certain professions:
-    * Farmers always have the pumpkin trade.
-    * Fishermen always have the raw cod trade.
+    * Farmers now always have the pumpkin trade.
+    * Fishermen now always have the raw cod trade.
     * Toolsmiths no longer sell axes, but always have the diamond hoe and diamond shovel trades.
 * All features are optional.
 
