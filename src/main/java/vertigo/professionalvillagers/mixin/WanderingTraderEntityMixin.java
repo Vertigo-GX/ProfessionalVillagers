@@ -4,12 +4,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.WanderingTraderEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -36,15 +33,15 @@ public abstract class WanderingTraderEntityMixin extends MerchantEntity {
 	}
 
 	/**
-	 * When interacting with a wandering trader while holding an emerald block, lower its despawn delay to {@value #DESPAWN_DELAY} ticks. Wandering traders from spawn eggs have a
-	 * despawn delay of 0, and are therefore unaffected.
+	 * When interacting with a wandering trader while holding an emerald block, lower its despawn delay to {@value #DESPAWN_DELAY} ticks. Wandering
+	 * traders from spawn eggs have a despawn delay of 0, and are therefore unaffected.
 	 */
 	@Inject(method = "interactMob", at = @At("HEAD"), cancellable = true)
 	private void interactMobInject(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
-		if (this.getWorld().isClient || !ProfessionalVillagers.CONFIG.dismissTrader || this.getDespawnDelay() < DESPAWN_DELAY) {
+		if(this.getEntityWorld().isClient() || !ProfessionalVillagers.CONFIG.dismissTrader || this.getDespawnDelay() < DESPAWN_DELAY) {
 			return;
 		}
-		if (!player.getStackInHand(hand).isOf(Items.EMERALD_BLOCK)) {
+		if(!player.getStackInHand(hand).isOf(Items.EMERALD_BLOCK)) {
 			return;
 		}
 		this.setDespawnDelay(DESPAWN_DELAY);

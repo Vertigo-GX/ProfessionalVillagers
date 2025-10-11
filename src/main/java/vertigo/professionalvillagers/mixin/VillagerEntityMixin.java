@@ -54,11 +54,11 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
 	 */
 	@Inject(method = "fillRecipes", at = @At("TAIL"))
 	private void fillRecipesInject(CallbackInfo info) {
-		if (!ProfessionalVillagers.CONFIG.levelEnchantments) {
+		if(!ProfessionalVillagers.CONFIG.levelEnchantments) {
 			return;
 		}
 		VillagerData data = this.getVillagerData();
-		if (!data.profession().matchesKey(VillagerProfession.LIBRARIAN) || data.level() > VillagerData.MIN_LEVEL) {
+		if(!data.profession().matchesKey(VillagerProfession.LIBRARIAN) || data.level() > VillagerData.MIN_LEVEL) {
 			return;
 		}
 		setEnchantmentLevels(1);
@@ -69,11 +69,11 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
 	 */
 	@Inject(method = "levelUp", at = @At("TAIL"))
 	private void levelUpInject(CallbackInfo info) {
-		if (!ProfessionalVillagers.CONFIG.levelEnchantments) {
+		if(!ProfessionalVillagers.CONFIG.levelEnchantments) {
 			return;
 		}
 		VillagerData data = this.getVillagerData();
-		if (!data.profession().matchesKey(VillagerProfession.LIBRARIAN)) {
+		if(!data.profession().matchesKey(VillagerProfession.LIBRARIAN)) {
 			return;
 		}
 		setEnchantmentLevels(data.level());
@@ -86,29 +86,29 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
 	 */
 	@Unique
 	private void setEnchantmentLevels(int level) {
-		for (TradeOffer o : this.getOffers()) {
+		for(TradeOffer o : this.getOffers()) {
 			ItemStack stack = o.getSellItem();
-			if (!stack.isOf(Items.ENCHANTED_BOOK)) {
+			if(!stack.isOf(Items.ENCHANTED_BOOK)) {
 				continue;
 			}
 			ItemEnchantmentsComponent component = EnchantmentHelper.getEnchantments(stack);
 			ItemEnchantmentsComponent.Builder builder = null;
 			// This supports enchanted books with multiple enchantments
-			for (RegistryEntry<Enchantment> e : component.getEnchantments()) {
+			for(RegistryEntry<Enchantment> e : component.getEnchantments()) {
 				int enchantmentLevel = component.getLevel(e);
-				if (enchantmentLevel == level) {
+				if(enchantmentLevel == level) {
 					continue;
 				}
 				int maxLevel = e.value().getMaxLevel();
-				if (enchantmentLevel < level && enchantmentLevel >= maxLevel) {
+				if(enchantmentLevel < level && enchantmentLevel >= maxLevel) {
 					continue;
 				}
-				if (builder == null) {
+				if(builder == null) {
 					builder = new ItemEnchantmentsComponent.Builder(component);
 				}
 				builder.set(e, Math.min(level, maxLevel));
 			}
-			if (builder != null) {
+			if(builder != null) {
 				EnchantmentHelper.set(stack, builder.build());
 			}
 		}
@@ -124,18 +124,18 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
 	 */
 	@Inject(method = "interactMob", at = @At("HEAD"))
 	private void interactMobInject(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> info) {
-		if (getWorld().isClient) {
+		if(this.getEntityWorld().isClient()) {
 			return;
 		}
 		ItemStack stack = player.getStackInHand(hand);
-		if (stack.isEmpty()) {
+		if(stack.isEmpty()) {
 			return;
 		}
-		if (stack.isOf(Items.EMERALD_BLOCK)) {
+		if(stack.isOf(Items.EMERALD_BLOCK)) {
 			resetOffers();
-		} else if (stack.isOf(Items.POISONOUS_POTATO)) {
+		} else if(stack.isOf(Items.POISONOUS_POTATO)) {
 			resetProfession(player, stack);
-		} else if (stack.isOf(Items.ENCHANTED_BOOK)) {
+		} else if(stack.isOf(Items.ENCHANTED_BOOK)) {
 			learnEnchantment(player, stack);
 		}
 	}
@@ -145,7 +145,7 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
 	 */
 	@Unique
 	private void resetOffers() {
-		if (!ProfessionalVillagers.CONFIG.quickReroll || this.getExperience() > 0) {
+		if(!ProfessionalVillagers.CONFIG.quickReroll || this.getExperience() > 0) {
 			return;
 		}
 		this.setOffers(null);
@@ -159,28 +159,28 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
 	 */
 	@Unique
 	private void learnEnchantment(PlayerEntity player, ItemStack book) {
-		if (!ProfessionalVillagers.CONFIG.learnEnchantment) {
+		if(!ProfessionalVillagers.CONFIG.learnEnchantment) {
 			return;
 		}
 		VillagerData data = this.getVillagerData();
-		if (!data.profession().matchesKey(VillagerProfession.LIBRARIAN) || data.level() < VillagerData.MAX_LEVEL) {
+		if(!data.profession().matchesKey(VillagerProfession.LIBRARIAN) || data.level() < VillagerData.MAX_LEVEL) {
 			return;
 		}
 		TradeOfferList offers = this.getOffers();
 		// A master-level librarian will have 9 trades by default
-		if (offers.size() > 9) {
+		if(offers.size() > 9) {
 			return;
 		}
 		ItemEnchantmentsComponent component = EnchantmentHelper.getEnchantments(book);
 		int size = component.getSize();
-		if (size == 0) {
+		if(size == 0) {
 			return;
 		}
 		ItemStack newBook = new ItemStack(Items.ENCHANTED_BOOK);
 		Iterator<RegistryEntry<Enchantment>> iterator = component.getEnchantments().iterator();
-		if (size > 1) {
-			int offset = this.getWorld().random.nextInt(size);
-			while (offset-- > 0) {
+		if(size > 1) {
+			int offset = this.getEntityWorld().random.nextInt(size);
+			while(offset-- > 0) {
 				iterator.next();
 			}
 		}
@@ -198,7 +198,7 @@ public abstract class VillagerEntityMixin extends MerchantEntity {
 	 */
 	@Unique
 	private void resetProfession(PlayerEntity player, ItemStack stack) {
-		if (!ProfessionalVillagers.CONFIG.resetProfession || this.getExperience() == 0 || !this.hasStatusEffect(StatusEffects.WEAKNESS)) {
+		if(!ProfessionalVillagers.CONFIG.resetProfession || this.getExperience() == 0 || !this.hasStatusEffect(StatusEffects.WEAKNESS)) {
 			return;
 		}
 		this.setVillagerData(this.getVillagerData().withLevel(VillagerData.MIN_LEVEL));
