@@ -2,25 +2,28 @@ package vertigo.professionalvillagers;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.item.Items;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
-import net.minecraft.village.*;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
+import net.minecraft.world.entity.npc.villager.VillagerTrades;
+import net.minecraft.world.item.Items;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Map;
 
 public class ProfessionalVillagers implements ModInitializer {
 
 	public static final String MOD_ID = "professional-villagers";
+
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
 	public static final Config CONFIG = new Config();
 
 	private static final int NOVICE = 1;
+
 	private static final int APPRENTICE = 2;
+
 	private static final int JOURNEYMAN = 3;
+
 	private static final int EXPERT = 4;
+
 	private static final int MASTER = 5;
 
 	/**
@@ -29,7 +32,7 @@ public class ProfessionalVillagers implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Initializing");
-		if (CONFIG.modifiedTrades) {
+		if(CONFIG.modifiedTrades) {
 			modifyFarmerTrades();
 			modifyFishermanTrades();
 			modifyToolsmithTrades();
@@ -43,7 +46,7 @@ public class ProfessionalVillagers implements ModInitializer {
 	 * </ul>
 	 */
 	private void modifyFarmerTrades() {
-		swapTrades(TradeOffers.PROFESSION_TO_LEVELED_TRADE.get(VillagerProfession.FARMER).get(APPRENTICE), 0, TradeOffers.PROFESSION_TO_LEVELED_TRADE.get(VillagerProfession.FARMER).get(JOURNEYMAN), 0);
+		swapTrades(VillagerTrades.TRADES.get(VillagerProfession.FARMER).get(APPRENTICE), 0, VillagerTrades.TRADES.get(VillagerProfession.FARMER).get(JOURNEYMAN), 0);
 	}
 
 	/**
@@ -53,7 +56,7 @@ public class ProfessionalVillagers implements ModInitializer {
 	 * </ul>
 	 */
 	private void modifyFishermanTrades() {
-		swapTrades(TradeOffers.PROFESSION_TO_LEVELED_TRADE.get(VillagerProfession.FISHERMAN).get(APPRENTICE), 0, TradeOffers.PROFESSION_TO_LEVELED_TRADE.get(VillagerProfession.FISHERMAN).get(JOURNEYMAN), 1);
+		swapTrades(VillagerTrades.TRADES.get(VillagerProfession.FISHERMAN).get(APPRENTICE), 0, VillagerTrades.TRADES.get(VillagerProfession.FISHERMAN).get(JOURNEYMAN), 1);
 	}
 
 	/**
@@ -75,27 +78,27 @@ public class ProfessionalVillagers implements ModInitializer {
 		// Journeyman | b. flint           | e. iron axe    | e. iron shovel    | e. iron pickaxe  | s. diamond hoe
 		// Expert     | b. diamond         | e. diamond axe | e. diamond shovel |                  |
 		// Master     | e. diamond pickaxe |
-		Int2ObjectMap<TradeOffers.Factory[]> trades = TradeOffers.PROFESSION_TO_LEVELED_TRADE.get(VillagerProfession.TOOLSMITH);
-		TradeOffers.Factory[] factories = trades.get(NOVICE);
-		trades.put(NOVICE, new TradeOffers.Factory[]{factories[0], factories[2], factories[3], factories[4]});
+		Int2ObjectMap<VillagerTrades.ItemListing[]> trades = VillagerTrades.TRADES.get(VillagerProfession.TOOLSMITH);
+		VillagerTrades.ItemListing[] factories = trades.get(NOVICE);
+		trades.put(NOVICE, new VillagerTrades.ItemListing[]{factories[0], factories[2], factories[3], factories[4]});
 		factories = trades.get(JOURNEYMAN);
-		trades.put(JOURNEYMAN, new TradeOffers.Factory[]{factories[0], factories[2], factories[3], new TradeOffers.SellEnchantedToolFactory(Items.IRON_HOE, 2, 3, 10, 0.2F)});
+		trades.put(JOURNEYMAN, new VillagerTrades.ItemListing[]{factories[0], factories[2], factories[3], new VillagerTrades.EnchantedItemForEmeralds(Items.IRON_HOE, 2, 3, 10, 0.2F)});
 		factories = trades.get(EXPERT);
-		trades.put(EXPERT, new TradeOffers.Factory[]{factories[0], factories[2]});
+		trades.put(EXPERT, new VillagerTrades.ItemListing[]{factories[0], factories[2]});
 		factories = trades.get(MASTER);
-		trades.put(MASTER, new TradeOffers.Factory[]{factories[0], new TradeOffers.SellEnchantedToolFactory(Items.DIAMOND_HOE, 9, 3, 20, 0.2F)});
+		trades.put(MASTER, new VillagerTrades.ItemListing[]{factories[0], new VillagerTrades.EnchantedItemForEmeralds(Items.DIAMOND_HOE, 9, 3, 20, 0.2F)});
 	}
 
 	/**
 	 * Swaps the two trades specified by the provided indexes.
 	 *
 	 * @param factories1 Factory array 1
-	 * @param index1     Index for factory array 1
+	 * @param index1 Index for factory array 1
 	 * @param factories2 Factory array 2
-	 * @param index2     Index for factory array 2
+	 * @param index2 Index for factory array 2
 	 */
-	private void swapTrades(TradeOffers.Factory[] factories1, int index1, TradeOffers.Factory[] factories2, int index2) {
-		TradeOffers.Factory factory = factories1[index1];
+	private void swapTrades(VillagerTrades.ItemListing[] factories1, int index1, VillagerTrades.ItemListing[] factories2, int index2) {
+		VillagerTrades.ItemListing factory = factories1[index1];
 		factories1[index1] = factories2[index2];
 		factories2[index2] = factory;
 	}
