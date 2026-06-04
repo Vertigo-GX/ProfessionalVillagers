@@ -9,10 +9,10 @@ A small server-side/singleplayer Minecraft mod for Fabric that makes villagers s
 * Interacting with a wandering trader while holding an emerald block dismisses it after 5 seconds. Doesn't dismiss traders spawned by spawn eggs.
 * Interacting with a villager while holding a poisonous potato resets its trade offers, level and experience. The villager must have the Weakness effect, same as when curing a zombie villager with a golden apple. The potato is consumed in the process.
 * Interacting with a librarian while holding an enchanted book teaches it a random enchantment from said book. Can be done once per master-level librarian. The book is consumed in the process.
-* Modifies the trade offers of certain professions:
-    * Farmers now always have the pumpkin trade.
-    * Fishermen now always have the raw cod trade.
-    * Toolsmiths no longer sell axes, but always have the diamond hoe and diamond shovel trades.
+* Modifies the trade offers of selected professions:
+    * Farmers always have the pumpkin trade.
+    * Fishermen always have the raw cod trade.
+    * Toolsmiths always have the diamond hoe and diamond shovel trades.
 * All features are optional.
 
 ### Configuration:
