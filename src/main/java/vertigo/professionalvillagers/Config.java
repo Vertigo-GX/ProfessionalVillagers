@@ -18,7 +18,7 @@ public class Config {
 
 	private static final String LEVEL_ENCHANTMENTS = "levelEnchantments";
 
-	private static final String MODIFIED_TRADES = "modifiedTrades";
+	private static final String MODIFY_TRADES = "modifyTrades";
 
 	public boolean quickReroll = true;
 
@@ -30,7 +30,7 @@ public class Config {
 
 	public boolean levelEnchantments = true;
 
-	public boolean modifiedTrades = false;
+	public boolean modifyTrades = false;
 
 	public Config() {
 		if(!read()) {
@@ -46,7 +46,7 @@ public class Config {
 			writer.write(RESET_PROFESSION + SEPARATOR + resetProfession + System.lineSeparator());
 			writer.write(LEARN_ENCHANTMENT + SEPARATOR + learnEnchantment + System.lineSeparator());
 			writer.write(LEVEL_ENCHANTMENTS + SEPARATOR + levelEnchantments + System.lineSeparator());
-			writer.write(MODIFIED_TRADES + SEPARATOR + modifiedTrades);
+			writer.write(MODIFY_TRADES + SEPARATOR + modifyTrades);
 		} catch(IOException e) {
 			ProfessionalVillagers.LOGGER.error("Failed to write config ({})", file.getPath());
 		}
@@ -75,8 +75,8 @@ public class Config {
 							learnEnchantment = segments[1].equals("true");
 					case LEVEL_ENCHANTMENTS ->
 							levelEnchantments = segments[1].equals("true");
-					case MODIFIED_TRADES ->
-							modifiedTrades = segments[1].equals("true");
+					case MODIFY_TRADES ->
+							modifyTrades = segments[1].equals("true");
 				}
 			}
 		} catch(IOException e) {

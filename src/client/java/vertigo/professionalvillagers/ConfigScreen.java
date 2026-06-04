@@ -1,6 +1,5 @@
 package vertigo.professionalvillagers;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.components.Tooltip;
@@ -37,9 +36,9 @@ public class ConfigScreen extends Screen {
 		adder.addChild(createToggleButton("resetProfession", ProfessionalVillagers.CONFIG.resetProfession, b -> setToggleButtonMessage(b, "resetProfession", ProfessionalVillagers.CONFIG.resetProfession ^= true)));
 		adder.addChild(createToggleButton("learnEnchantment", ProfessionalVillagers.CONFIG.learnEnchantment, b -> setToggleButtonMessage(b, "learnEnchantment", ProfessionalVillagers.CONFIG.learnEnchantment ^= true)));
 		adder.addChild(createToggleButton("levelEnchantments", ProfessionalVillagers.CONFIG.levelEnchantments, b -> setToggleButtonMessage(b, "levelEnchantments", ProfessionalVillagers.CONFIG.levelEnchantments ^= true)));
-		adder.addChild(createToggleButtonWithNote("modifiedTrades", ProfessionalVillagers.CONFIG.modifiedTrades, "requiresRestart", b -> setToggleButtonMessage(b, "modifiedTrades", ProfessionalVillagers.CONFIG.modifiedTrades ^= true)));
+		adder.addChild(createToggleButton("modifyTrades", ProfessionalVillagers.CONFIG.modifyTrades, b -> setToggleButtonMessage(b, "modifyTrades", ProfessionalVillagers.CONFIG.modifyTrades ^= true)));
 		layout.addToContents(grid);
-		layout.addToFooter(Button.builder(CommonComponents.GUI_DONE, b -> onClose()).build());
+		layout.addToFooter(Button.builder(CommonComponents.GUI_DONE, _ -> onClose()).build());
 		layout.visitWidgets(this::addRenderableWidget);
 		layout.arrangeElements();
 	}
@@ -54,10 +53,6 @@ public class ConfigScreen extends Screen {
 
 	private Button createToggleButton(String key, boolean value, Button.OnPress action) {
 		return Button.builder(CommonComponents.optionStatus(Component.translatable("professional-villagers.option." + key), value), action).tooltip(Tooltip.create(Component.translatable("professional-villagers.tooltip." + key))).size(BUTTON_WIDTH, BUTTON_HEIGHT).build();
-	}
-
-	private Button createToggleButtonWithNote(String optionKey, boolean value, String noteKey, Button.OnPress action) {
-		return Button.builder(CommonComponents.optionStatus(Component.translatable("professional-villagers.option." + optionKey), value), action).tooltip(Tooltip.create(Component.translatable("professional-villagers.tooltip." + optionKey).append("\n\n").append(Component.translatable("professional-villagers.text." + noteKey).withColor(ChatFormatting.GOLD.getColor())))).size(BUTTON_WIDTH, BUTTON_HEIGHT).build();
 	}
 
 	private void setToggleButtonMessage(Button button, String key, boolean value) {
