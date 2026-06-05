@@ -1,6 +1,7 @@
 package vertigo.professionalvillagers.mixin;
 
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -11,6 +12,7 @@ import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.npc.villager.VillagerData;
 import net.minecraft.world.entity.npc.villager.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -56,13 +58,13 @@ public abstract class VillagerMixin extends AbstractVillager {
 			int villagerLevel = data.level();
 			Holder<VillagerProfession> profession = data.profession();
 			if(villagerLevel == 2 && profession.is(VillagerProfession.FARMER)) {
-				adjustFarmerTrades();
+				addIfMissingByCost(3, Items.PUMPKIN, level, ProfessionalVillagers.PUMPKIN);
 			} else if(villagerLevel == 2 && profession.is(VillagerProfession.FISHERMAN)) {
-				adjustFishermanTrades();
+				addIfMissingByCost(3, Items.COD, level, ProfessionalVillagers.COD);
 			} else if(villagerLevel == 3 && profession.is(VillagerProfession.TOOLSMITH)) {
-				adjustToolsmithJourneymanTrades();
+				addIfMissingByResult(5, Items.DIAMOND_HOE, level, ProfessionalVillagers.DIAMOND_HOE);
 			} else if(villagerLevel == 4 && profession.is(VillagerProfession.TOOLSMITH)) {
-				adjustToolsmithExpertTrades();
+				addIfMissingByResult(7, Items.DIAMOND_SHOVEL, level, ProfessionalVillagers.DIAMOND_SHOVEL);
 			}
 		}
 		if(ProfessionalVillagers.CONFIG.levelEnchantments) {
@@ -75,60 +77,29 @@ public abstract class VillagerMixin extends AbstractVillager {
 	}
 
 	@Unique
-	private void adjustFarmerTrades() {
+	private void addIfMissingByCost(int index, Item item, ServerLevel level, ResourceKey<TradeSet> key) {
 		MerchantOffers offers = this.getOffers();
-		if(offers.size() < 4) {
+		if(offers.size() < index + 1) {
 			return;
 		}
-		if(offers.get(2).getCostA().is(Items.PUMPKIN) || offers.get(3).getCostA().is(Items.PUMPKIN)) {
+		if(offers.get(index).getCostA().is(item) || offers.get(index - 1).getCostA().is(item)) {
 			return;
 		}
-		offers.set(3, new MerchantOffer(new ItemCost(Items.PUMPKIN, 6), new ItemStack(Items.EMERALD), 12, 10, 0.05f));
+		offers.remove(index);
+		this.addOffersFromTradeSet(level, offers, key);
 	}
 
 	@Unique
-	private void adjustFishermanTrades() {
+	private void addIfMissingByResult(int index, Item item, ServerLevel level, ResourceKey<TradeSet> key) {
 		MerchantOffers offers = this.getOffers();
-		if(offers.size() < 4) {
+		if(offers.size() < index + 1) {
 			return;
 		}
-		if(offers.get(2).getCostA().is(Items.COD) || offers.get(3).getCostA().is(Items.COD)) {
+		if(offers.get(index).getResult().is(item) || offers.get(index - 1).getResult().is(item)) {
 			return;
 		}
-		offers.set(3, new MerchantOffer(new ItemCost(Items.COD, 15), new ItemStack(Items.EMERALD), 16, 10, 0.05f));
-	}
-
-	@Unique
-	private void adjustToolsmithJourneymanTrades() {
-		MerchantOffers offers = this.getOffers();
-		if(offers.size() < 6) {
-			return;
-		}
-		if(offers.get(4).getResult().is(Items.DIAMOND_HOE) || offers.get(5).getResult().is(Items.DIAMOND_HOE)) {
-			return;
-		}
-		offers.set(5, new MerchantOffer(new ItemCost(Items.EMERALD, 4), new ItemStack(Items.DIAMOND_HOE), 3, 10, 0.2f));
-	}
-
-	@Unique
-	private void adjustToolsmithExpertTrades() {
-		MerchantOffers offers = this.getOffers();
-		if(offers.size() < 8) {
-			return;
-		}
-		ItemStack first = offers.get(6).getResult();
-		ItemStack second = offers.get(7).getResult();
-		if(first.is(Items.DIAMOND_SHOVEL) || second.is(Items.DIAMOND_SHOVEL)) {
-			return;
-		}
-		ItemStack stack = new ItemStack(Items.DIAMOND_SHOVEL);
-		if(first.is(Items.DIAMOND_AXE)) {
-			EnchantmentHelper.setEnchantments(stack, first.getEnchantments());
-		} else if(second.is(Items.DIAMOND_AXE)) {
-			EnchantmentHelper.setEnchantments(stack, second.getEnchantments());
-		}
-		// Cost should be 5 + base enchantment level; 18 is an average
-		offers.set(7, new MerchantOffer(new ItemCost(Items.EMERALD, 18), stack, 3, 15, 0.2f));
+		offers.remove(index);
+		this.addOffersFromTradeSet(level, offers, key);
 	}
 
 	@Unique
