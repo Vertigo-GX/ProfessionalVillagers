@@ -48,7 +48,7 @@ public class ConfigScreen extends Screen {
 		if(modified) {
 			ProfessionalVillagers.CONFIG.write();
 		}
-		this.minecraft.setScreen(this.parent);
+		this.minecraft.gui.setScreen(this.parent);
 	}
 
 	private Button createToggleButton(String key, boolean value, Button.OnPress action) {
